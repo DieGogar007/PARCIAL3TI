@@ -5,11 +5,11 @@ const csurf = require('csurf');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Create a CSRF protection instance
+// Crea una instancia de protección CSRF
 const csrfProtection = csurf({ cookie: true });
 
 // Middleware
-app.use(csrfProtection);  // Include CSRF protection middleware
+app.use(csrfProtection);
 app.use(bodyParser.json());
 
 // Datos de ejemplo para la API
@@ -48,7 +48,11 @@ app.post('/api/usuarios', csrfProtection, (req, res) => {
     res.status(201).json(nuevoUsuario);
 });
 
+// Deshabilitar el encabezado X-Powered-By
+app.set('x-powered-by', false); // Establece la propiedad en false
+
 // Iniciar el servidor
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
+
